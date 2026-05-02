@@ -1,0 +1,54 @@
+{
+  "entreprise": "NewDevMaroc",
+  "contact": "contact@newdevmaroc.com",
+  "telephone": "05 35 65 07 57",
+  "adresse": "2eme étage N°7, Bureaux Rayane, Av St Louis, Fès",
+  "horaires": {
+    "lundi_vendredi": "09:00 - 18:00",
+    "samedi": "09:00 - 13:00",
+    "dimanche": "Fermé"
+  },
+  "services": [
+    {
+      "nom": "Création de sites internet",
+      "description": "Création de sites vitrines et e-commerce sur mesure, optimisés pour le SEO.",
+      "prix_indicatif": "À partir de 5000 MAD pour un site vitrine, et 12000 MAD pour du e-commerce.",
+      "delai_moyen": "2 à 6 semaines"
+    },
+    {
+      "nom": "Logiciels sur mesure",
+      "description": "Développement d'applications web et métiers adaptées aux processus spécifiques du client.",
+      "prix_indicatif": "Sur devis uniquement (généralement à partir de 20000 MAD).",
+      "delai_moyen": "1 à 6 mois"
+    },
+    {
+      "nom": "Marketing digital et e-commerce",
+      "description": "Gestion des campagnes publicitaires (Meta, Google Ads), community management et stratégie e-commerce.",
+      "prix_indicatif": "Forfaits mensuels à partir de 3000 MAD/mois.",
+      "delai_moyen": "Continu"
+    },
+    {
+      "nom": "Formation professionnelle",
+      "description": "Formations en développement web, data, et marketing digital pour les entreprises et les particuliers.",
+      "prix_indicatif": "Environ 1500 MAD par jour et par personne.",
+      "delai_moyen": "Sessions de 2 à 5 jours"
+    },
+    {
+      "nom": "Sous-traitance offshore",
+      "description": "Mise à disposition de développeurs qualifiés pour des clients européens (régie ou forfait).",
+      "prix_indicatif": "Taux journalier moyen (TJM) à partir de 150€/jour.",
+      "delai_moyen": "Selon la mission"
+    },
+    {
+      "nom": "Conception et impression",
+      "description": "Création d'identité visuelle (logos, chartes graphiques) et impression de supports de communication.",
+      "prix_indicatif": "Création de logo à partir de 1500 MAD.",
+      "delai_moyen": "1 semaine"
+    }
+  ],
+  "regles_chatbot": [
+    "Ne jamais donner de prix définitif, préciser que ce sont des estimations.",
+    "Proposer un appel ou d'envoyer un email à contact@newdevmaroc.com pour un devis précis.",
+    "Si le service demandé n'est pas dans la liste, dire poliment que l'agence ne propose pas ce service."
+  ]
+}
