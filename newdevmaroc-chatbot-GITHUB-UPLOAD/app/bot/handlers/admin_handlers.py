@@ -7,10 +7,12 @@ Fonctionnement : Intercepte les commandes, vérifie si l'utilisateur est admin, 
 =========================================================
 """
 
-from telegram import Update
+from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import ContextTypes
 import io
-import csv
+import openpyxl
+from openpyxl.styles import Font, PatternFill
+from openpyxl.utils import get_column_letter
 from app.db.database import AsyncSessionLocal
 from app.db.repositories.message_repo import MessageRepository
 from app.ai.knowledge_base_loader import KnowledgeBase
@@ -26,7 +28,7 @@ async def admin_stats_command(update: Update, context: ContextTypes.DEFAULT_TYPE
         stats_service = StatsService(session)
         stats_text = await stats_service.get_global_stats()
         
-    await update.message.reply_text(stats_text)
+    await update.effective_message.reply_text(stats_text)
 
 @auth_middleware
 @admin_only
@@ -122,26 +124,48 @@ async def admin_broadcast_command(update: Update, context: ContextTypes.DEFAULT_
 @auth_middleware
 @admin_only
 async def admin_export_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    """Exporte la liste des utilisateurs en CSV."""
+    """Exporte la liste des utilisateurs en Excel."""
     async with AsyncSessionLocal() as session:
         user_service = UserService(session)
         users = await user_service.get_all_users()
         
     if not users:
-        await update.message.reply_text("Aucun utilisateur à exporter.")
+        await update.effective_message.reply_text("Aucun utilisateur à exporter.")
         return
         
-    output = io.StringIO()
-    writer = csv.writer(output)
-    writer.writerow(['ID', 'Telegram ID', 'Username', 'First Name', 'Created At', 'Banned'])
+    wb = openpyxl.Workbook()
+    ws = wb.active
+    ws.title = "Utilisateurs"
+    
+    headers = ['ID', 'Telegram ID', 'Username', 'First Name', 'Created At', 'Banned']
+    ws.append(headers)
+    
+    header_font = Font(bold=True, color="FFFFFF")
+    header_fill = PatternFill(start_color="4F81BD", end_color="4F81BD", fill_type="solid")
+    
+    for col_num, cell in enumerate(ws[1], 1):
+        cell.font = header_font
+        cell.fill = header_fill
+        ws.column_dimensions[get_column_letter(col_num)].width = 20
     
     for u in users:
-        writer.writerow([u.id, u.telegram_id, u.username, u.first_name, u.created_at, u.is_banned])
+        # Convert created_at to string and clean username/first_name to prevent encoding issues
+        ws.append([
+            u.id, 
+            u.telegram_id, 
+            u.username or "", 
+            u.first_name or "", 
+            u.created_at.strftime("%Y-%m-%d %H:%M:%S") if u.created_at else "", 
+            "Oui" if u.is_banned else "Non"
+        ])
         
-    csv_bytes = output.getvalue().encode('utf-8')
-    await update.message.reply_document(
-        document=csv_bytes, 
-        filename="users_export.csv",
+    output = io.BytesIO()
+    wb.save(output)
+    excel_bytes = output.getvalue()
+    
+    await update.effective_message.reply_document(
+        document=excel_bytes, 
+        filename="users_export.xlsx",
         caption="📊 Voici l'export complet de vos utilisateurs."
     )
 
@@ -192,9 +216,9 @@ async def admin_reload_command(update: Update, context: ContextTypes.DEFAULT_TYP
     try:
         kb = KnowledgeBase()
         kb.reload()
-        await update.message.reply_text("🔄 Base de connaissances rechargée avec succès !")
+        await update.effective_message.reply_text("🔄 Base de connaissances rechargée avec succès !")
     except Exception as e:
-        await update.message.reply_text(f"❌ Erreur lors du rechargement : {e}")
+        await update.effective_message.reply_text(f"❌ Erreur lors du rechargement : {e}")
 
 @auth_middleware
 @admin_only
@@ -211,4 +235,9 @@ async def admin_help_command(update: Update, context: ContextTypes.DEFAULT_TYPE)
         "🔄 `/admin_reload` - Recharger le fichier JSON\n"
         "❓ `/admin_help` - Afficher ce menu\n"
     )
-    await update.message.reply_text(help_text, parse_mode="Markdown")
+    keyboard = [
+        [InlineKeyboardButton("📊 Statistiques", callback_data='cmd_admin_stats'), InlineKeyboardButton("📥 Export CSV", callback_data='cmd_admin_export')],
+        [InlineKeyboardButton("🔄 Recharger JSON", callback_data='cmd_admin_reload')]
+    ]
+    reply_markup = InlineKeyboardMarkup(keyboard)
+    await update.effective_message.reply_text(help_text, parse_mode="Markdown", reply_markup=reply_markup)

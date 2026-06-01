@@ -7,9 +7,12 @@ Fonctionnement : Associe le token du bot, ajoute les handlers (gestionnaires de 
 =========================================================
 """
 
-from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, filters
+from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, CallbackQueryHandler, filters
 from app.config import settings
-from app.bot.handlers.command_handlers import start_command, help_command, reset_command, stats_command, services_command, contact_command
+from app.bot.handlers.command_handlers import (
+    start_command, help_command, reset_command, stats_command, 
+    services_command, contact_command, button_callback_handler
+)
 from app.bot.handlers.message_handlers import handle_message
 from app.bot.handlers.admin_handlers import (
     admin_ban_command, admin_stats_command, admin_broadcast_command,
@@ -42,5 +45,8 @@ def build_application():
     
     # Ajout du handler pour tous les messages texte
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
+    
+    # Ajout du handler pour les boutons inline
+    app.add_handler(CallbackQueryHandler(button_callback_handler))
     
     return app

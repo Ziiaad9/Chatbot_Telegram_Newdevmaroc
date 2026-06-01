@@ -8,39 +8,65 @@
     "samedi": "09:00 - 13:00",
     "dimanche": "Fermé"
   },
+  "lexique": {
+    "prix": [
+      "prix", "tarif", "coût", "combien", "taman", "bch7al", "chhal", "price", "cost", "how much", "الثمن", "السعر", "بشحال", "flous", "devis", "budget", "شحال", "تكلفة"
+    ],
+    "delai": [
+      "délai", "temps", "durée", "quand", "w9t", "wa9t", "chhal dl w9t", "fo9ach", "time", "duration", "when", "how long", "الوقت", "المدة", "فوقاش", "imta", "iyam", "امتى", "وقتاش"
+    ],
+    "contact": [
+      "contact", "téléphone", "adresse", "localisation", "numéro", "email", "fin kaynin", "nmra", "nimiro", "fin jat", "tilifon", "mo3id", "العنوان", "الهاتف", "رقم", "فين كاينين"
+    ],
+    "salutation": [
+      "bonjour", "salut", "salam", "ahlan", "sba7 lkhir", "marhaba", "hello", "hi", "سلام", "اهلا", "صباح الخير", "مرحبا"
+    ],
+    "services": [
+      "services", "activité", "vous faites quoi", "chno kadiro", "khadamat", "khedma", "ach kadiro", "خدمات", "اش كديرو", "شنو كديرو"
+    ],
+    "horaires": [
+      "horaires", "ouverture", "ouvert", "heures", "m3ach kat7lo", "w9t lkhdma", "taw9it", "imta kat7ello", "معاش كتحلو", "توقيت"
+    ]
+  },
   "services": [
     {
       "nom": "Création de sites internet",
+      "mots_cles": ["site web", "siteweb", "sit", "portail", "e-commerce", "boutique en ligne", "website", "موقع الكتروني", "موقع"],
       "description": "Création de sites vitrines et e-commerce sur mesure, optimisés pour le SEO.",
       "prix_indicatif": "À partir de 5000 MAD pour un site vitrine, et 12000 MAD pour du e-commerce.",
       "delai_moyen": "2 à 6 semaines"
     },
     {
       "nom": "Logiciels sur mesure",
+      "mots_cles": ["logiciel", "application", "app", "système", "programme", "software", "custom app", "برنامج", "تطبيق", "systeme", "appli"],
       "description": "Développement d'applications web et métiers adaptées aux processus spécifiques du client.",
       "prix_indicatif": "Sur devis uniquement (généralement à partir de 20000 MAD).",
       "delai_moyen": "1 à 6 mois"
     },
     {
       "nom": "Marketing digital et e-commerce",
+      "mots_cles": ["marketing", "publicité", "ads", "sponsorisé", "facebook ads", "instagram ads", "community management", "réseaux sociaux", "تسويق", "إشهار"],
       "description": "Gestion des campagnes publicitaires (Meta, Google Ads), community management et stratégie e-commerce.",
       "prix_indicatif": "Forfaits mensuels à partir de 3000 MAD/mois.",
       "delai_moyen": "Continu"
     },
     {
       "nom": "Formation professionnelle",
+      "mots_cles": ["formation", "cours", "apprentissage", "training", "ta3lim", "9raya", "tadriss", "تكوين", "تدريب", "تعلم"],
       "description": "Formations en développement web, data, et marketing digital pour les entreprises et les particuliers.",
       "prix_indicatif": "Environ 1500 MAD par jour et par personne.",
       "delai_moyen": "Sessions de 2 à 5 jours"
     },
     {
       "nom": "Sous-traitance offshore",
+      "mots_cles": ["offshore", "sous-traitance", "régie", "développeur", "freelance", "outsourcing", "délégation", "تعاقد", "مطورين"],
       "description": "Mise à disposition de développeurs qualifiés pour des clients européens (régie ou forfait).",
       "prix_indicatif": "Taux journalier moyen (TJM) à partir de 150€/jour.",
       "delai_moyen": "Selon la mission"
     },
     {
       "nom": "Conception et impression",
+      "mots_cles": ["conception", "logo", "design", "impression", "charte graphique", "carte visite", "dizayn", "tb3a", "طباعة", "تصميم"],
       "description": "Création d'identité visuelle (logos, chartes graphiques) et impression de supports de communication.",
       "prix_indicatif": "Création de logo à partir de 1500 MAD.",
       "delai_moyen": "1 semaine"

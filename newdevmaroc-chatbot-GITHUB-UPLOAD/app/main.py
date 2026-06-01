@@ -23,6 +23,16 @@ async def init_db():
         # En production, utilisez Alembic. Pour la simplicité ici on create_all.
         await conn.run_sync(Base.metadata.create_all)
         logger.info("Base de données initialisée correctement.")
+        
+    # Initialiser la base vectorielle ChromaDB si nécessaire
+    from app.ai.vector_store import VectorStoreManager
+    try:
+        manager = VectorStoreManager()
+        # Appel de get_retriever() qui déclenche l'auto-initialisation si vide/inexistante
+        manager.get_retriever()
+        logger.info("Base vectorielle verifiee et prete.")
+    except Exception as e:
+        logger.error(f"Erreur lors de l'initialisation de la base vectorielle : {e}")
 
 def main():
     """Point d'entrée principal de l'application."""
